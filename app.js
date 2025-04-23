@@ -4,6 +4,7 @@ const session = require('express-session');
 const ejsLayouts = require('express-ejs-layouts');
 const authRoutes = require('./routes/auth');
 const User = require('./models/User');
+// const { requireAuth } = require('./middleware/auth'); 
 
 const app = express();
 
@@ -37,7 +38,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/' ,async (req, res) => {
+app.get('/',async (req, res) => {
     try {
         const userCount = await User.countDocuments();
         res.render('index', { pageTitle: 'Home', error: null, userCount });
