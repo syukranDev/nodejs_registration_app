@@ -1,0 +1,11 @@
+/* Custom styles */
+.navbar-brand {
+    font-weight: bold;
+}
+.auth-card .card {
+    border-radius: 10px;
+}
+
+.alert {
+    margin-bottom: 1rem;
+}
