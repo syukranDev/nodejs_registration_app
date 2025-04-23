@@ -1,0 +1,14 @@
+{
+    "local": {
+      "db": {
+        "uri": "mongodb+srv://ssfun44:kMtcdT6vKjNbSXB0@registrationapp.cpopcgu.mongodb.net/?retryWrites=true&w=majority&appName=registrationAPP"
+      },
+      "sessionSecret": "thisisdevsecretlol"
+    },
+    "prod": {
+      "db": {
+        "uri": "TBA"
+      },
+      "sessionSecret": "TBA"
+    }
+  }

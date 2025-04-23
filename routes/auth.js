@@ -86,6 +86,7 @@ router.post('/api/login', async (req, res) => {
     }
 });
 
+// notedev: ignore this, this is for testing purposes
 router.get('/api/registered_user_count', async (req, res) => {
     try {
         const count = await User.countDocuments();

@@ -5,11 +5,14 @@ const ejsLayouts = require('express-ejs-layouts');
 const authRoutes = require('./routes/auth');
 const User = require('./models/User');
 // const { requireAuth } = require('./middleware/auth'); 
+const config = require('./config.json');
+const env = process.env.NODE_ENV || 'dev';
+const currentConfig = config[env];
 
 const app = express();
 
 // Connect to MongoDB
-mongoose.connect('', {
+mongoose.connect(currentConfig.db.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -21,7 +24,7 @@ mongoose.connect('', {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.use(session({
-    secret: 'secret_key',
+    secret: currentConfig.sessionSecret,
     resave: false,
     saveUninitialized: true
 }));
