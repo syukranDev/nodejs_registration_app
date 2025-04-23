@@ -1,0 +1,14 @@
+<% if (typeof user !== 'undefined' && user) { %>
+    <p class="text-center">Welcome, <%= user.username %>! You are logged in.</p>
+    <p class="text-center">Total registered users: </p>
+    <h1 class="text-center text-danger"><%= userCount %></h1>
+    <p class="text-center">Explore your dashboard or <a href="/users/logout">log out</a>.</p>
+<% } else { %>
+    <h1 class="text-center mb-4">NodeJS Assessment</h1>
+    <p class="text-center">Please <a href="/login">log in</a> or <a href="/signup">sign up</a> to continue.</p>
+<% } %>
+<% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-danger text-center" role="alert">
+        <%= error %>
+    </div>
+<% } %>
