@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 
 router.post('/api/signup', async (req, res) => {
     const { username, email, password } = req.body;
@@ -28,6 +29,9 @@ router.post('/api/signup', async (req, res) => {
         });
     }
 
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
     try {
         const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
@@ -46,9 +50,15 @@ router.post('/api/signup', async (req, res) => {
             password: hashedPassword
         });
 
+        await session.commitTransaction();
+        session.endSession();
+
         req.session.user = { id: user._id, username: user.username };
         res.redirect('/');
     } catch (error) {
+        await session.abortTransaction();
+        session.endSession();
+
         res.render('signup', {
             pageTitle: 'Sign Up',
             error: error.message
@@ -95,5 +105,18 @@ router.get('/api/registered_user_count', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+router.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.render('index', {
+                pageTitle: 'Home',
+                error: 'Failed to log out'
+            });
+        }
+        res.redirect('/login');
+    });
+});
+
 
 module.exports = router;
