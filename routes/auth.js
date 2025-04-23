@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
-router.post('/signup', async (req, res) => {
+router.post('/api/signup', async (req, res) => {
     const { username, email, password } = req.body;
 
     try {
@@ -33,7 +34,7 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
 
     try {
