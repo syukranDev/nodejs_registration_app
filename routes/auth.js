@@ -6,6 +6,28 @@ const bcrypt = require('bcrypt');
 router.post('/api/signup', async (req, res) => {
     const { username, email, password } = req.body;
 
+    const errors = [];
+
+    if (!username || username.length < 5) {
+        errors.push('Username must be at least 5 characters long');
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+        errors.push('Invalid email format');
+    }
+
+    if (!password || password.length < 5) {
+        errors.push('Password must be at least 5 characters long');
+    }
+
+    if (errors.length > 0) {
+        return res.render('signup', {
+            pageTitle: 'Sign Up',
+            error: errors.join(', ')
+        });
+    }
+
     try {
         const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
