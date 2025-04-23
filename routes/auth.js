@@ -64,4 +64,13 @@ router.post('/api/login', async (req, res) => {
     }
 });
 
+router.get('/api/registered_user_count', async (req, res) => {
+    try {
+        const count = await User.countDocuments();
+        res.json({ count });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = router;

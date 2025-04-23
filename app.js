@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const ejsLayouts = require('express-ejs-layouts');
 const authRoutes = require('./routes/auth');
+const User = require('./models/User');
 
 const app = express();
 
@@ -36,8 +37,13 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/', (req, res) => {
-    res.render('index', { pageTitle: 'Home' });
+app.get('/' ,async (req, res) => {
+    try {
+        const userCount = await User.countDocuments();
+        res.render('index', { pageTitle: 'Home', error: null, userCount });
+    } catch (error) {
+        res.render('index', { pageTitle: 'Home', error: 'Failed to fetch user count', userCount: 0 });
+    }
 });
 
 app.get('/signup', (req, res) => {
