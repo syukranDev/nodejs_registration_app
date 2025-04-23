@@ -29,8 +29,22 @@ npm install
 cd ../interview-question_eng
 npm run dev
 
+Run this URL on your browser: http://localhost:3300/
+
 # 4. Run solmy-assesment_eng (local MongoDB + native driver)
 cd ../solmy-assesment_eng
 npm run dev
+
+Run this URL on your browser: http://localhost:3000/
 ```
 Note: There are two sets of API logic for the register endpoint in `solmy-assesment_eng`. One uses a transaction, and the other is based on a locking mechanism. You can uncomment the relevant section in the code to try either approach.
+
+![image](https://github.com/user-attachments/assets/b1d4cee3-e300-4d76-9071-067359ac9c67)
+![image](https://github.com/user-attachments/assets/5c148b7d-e215-448b-a48d-0913477a1eff)
+![image](https://github.com/user-attachments/assets/becee5e5-4220-4cb4-b375-dc5d5fdcc2d6)
+![image](https://github.com/user-attachments/assets/dbb9425c-9900-4b48-8038-1c3a31c4fc40)
+
+
+
+
+
